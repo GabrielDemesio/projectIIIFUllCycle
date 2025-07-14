@@ -1,0 +1,50 @@
+# Desafio Go Expert - Listagem de Ordens
+
+Este desafio consiste em criar o usecase de listagem de ordens, com as seguintes implementações:
+
+- Endpoint REST (GET /order)
+- Service ListOrders com GRPC
+- Query ListOrders GraphQL
+
+## Pré-requisitos
+
+- Docker
+- Docker Compose
+- Go
+
+## Execução
+
+1.  **Clone o repositório:**
+    ```bash
+    git clone [https://github.com/devfullcycle/goexpert.git](https://github.com/devfullcycle/goexpert.git)
+    cd goexpert/20-CleanArch
+    ```
+2.  **Inicie os serviços:**
+    ```bash
+    docker-compose up -d
+    ```
+3.  **Execute a aplicação:**
+    ```bash
+    go run cmd/ordersystem/main.go
+    ```
+
+## Endpoints
+
+### REST
+
+-   **Criar Ordem:** `POST http://localhost:8080/order`
+-   **Listar Ordens:** `GET http://localhost:8080/order`
+
+### gRPC
+
+-   **Serviço:** `OrderService`
+-   **Porta:** `50051`
+
+### GraphQL
+
+-   **Playground:** `http://localhost:8082`
+-   **Endpoint:** `http://localhost:8082/query`
+
+## Migrações
+
+As migrações do banco de dados são executadas automaticamente ao iniciar a aplicação.
