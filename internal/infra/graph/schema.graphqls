@@ -1,12 +1,14 @@
+# internal/infra/graph/schema.graphqls
+
 type Order {
-  id: String!
+  id: ID!
   Price: Float!
   Tax: Float!
   FinalPrice: Float!
 }
 
 input OrderInput {
-  id: String!
+  id: ID!
   Price: Float!
   Tax: Float!
 }
@@ -16,5 +18,5 @@ type Query {
 }
 
 type Mutation {
-  createOrder(input: OrderInput): Order
+  createOrder(input: OrderInput!): Order!
 }
