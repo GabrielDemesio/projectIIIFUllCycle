@@ -13,17 +13,11 @@ Este desafio consiste em criar o usecase de listagem de ordens, com as seguintes
 - Go
 
 ## Execução
-
-1.  **Clone o repositório:**
-    ```bash
-    git clone [https://github.com/devfullcycle/goexpert.git](https://github.com/devfullcycle/goexpert.git)
-    cd goexpert/20-CleanArch
-    ```
-2.  **Inicie os serviços:**
+1.  **Inicie os serviços:**
     ```bash
     docker-compose up -d
     ```
-3.  **Execute a aplicação:**
+2.  **Execute a aplicação:**
     ```bash
     go run cmd/ordersystem/main.go
     ```
