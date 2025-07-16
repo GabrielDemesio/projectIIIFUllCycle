@@ -1,6 +1,9 @@
 package configs
 
-import "github.com/spf13/viper"
+import (
+	"fmt" // Importa o pacote fmt
+	"github.com/spf13/viper"
+)
 
 type conf struct {
 	DBDriver          string `mapstructure:"DB_DRIVER"`
@@ -12,22 +15,29 @@ type conf struct {
 	WebServerPort     string `mapstructure:"WEB_SERVER_PORT"`
 	GRPCServerPort    string `mapstructure:"GRPC_SERVER_PORT"`
 	GraphQLServerPort string `mapstructure:"GRAPHQL_SERVER_PORT"`
+	RabbitMQURL       string `mapstructure:"RABBITMQ_URL"`
 }
 
 func LoadConfig(path string) (*conf, error) {
 	var cfg *conf
-	viper.SetConfigName("app_config")
-	viper.SetConfigType("env")
-	viper.AddConfigPath(path)
-	viper.SetConfigFile(".env")
+
+	viper.SetConfigFile(path + "/.env")
+
 	viper.AutomaticEnv()
 	err := viper.ReadInConfig()
 	if err != nil {
 		panic(err)
 	}
+
 	err = viper.Unmarshal(&cfg)
 	if err != nil {
 		panic(err)
 	}
-	return cfg, err
+
+	// LINHA DE DEBUG ADICIONADA AQUI
+	fmt.Println("--- CONFIGURAÇÕES CARREGADAS ---")
+	fmt.Printf("%+v\n", cfg)
+	fmt.Println("-------------------------------")
+
+	return cfg, nil
 }
