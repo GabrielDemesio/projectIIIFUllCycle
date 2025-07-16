@@ -15,6 +15,9 @@ import (
 	"github.com/devfullcycle/20-CleanArch/internal/infra/grpc/service"
 	"github.com/devfullcycle/20-CleanArch/internal/infra/web/webserver"
 	"github.com/devfullcycle/20-CleanArch/pkg/events"
+	"github.com/golang-migrate/migrate/v4"
+	"github.com/golang-migrate/migrate/v4/database/mysql"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/streadway/amqp"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -34,6 +37,23 @@ func main() {
 		panic(err)
 	}
 	defer db.Close()
+
+	// --- LÓGICA DA MIGRATION ADICIONADA AQUI ---
+	driver, err := mysql.WithInstance(db, &mysql.Config{})
+	if err != nil {
+		panic(err)
+	}
+	m, err := migrate.NewWithDatabaseInstance(
+		"file://db/migrations",
+		"mysql",
+		driver,
+	)
+	if err != nil {
+		panic(err)
+	}
+	// Executa a migration (cria a tabela se não existir)
+	m.Up()
+	// -----------------------------------------
 
 	rabbitMQChannel := getRabbitMQChannel(configs.RabbitMQURL)
 

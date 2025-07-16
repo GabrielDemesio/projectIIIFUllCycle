@@ -24,7 +24,6 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./.docker/mysql:/docker-entrypoint-initdb.d
       - mysql_data:/var/lib/mysql
     healthcheck:
       # Comando de healthcheck corrigido para usar a senha diretamente
